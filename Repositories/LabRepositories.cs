@@ -5,43 +5,43 @@ using Dapper;
 
 namespace LabManager.Repositories;
 
-class ComputerRepository 
+class LabRepository 
 {
     private readonly DatabaseConfig _databaseConfig;
 
-    public ComputerRepository(DatabaseConfig databaseConfig)
+    public LabRepository(DatabaseConfig databaseConfig)
     {
         _databaseConfig = databaseConfig;
     }
 
-    public IEnumerable<Computer> GetAll()
+    public IEnumerable<Lab> GetAll()
     {
         using var connection = new SqliteConnection(_databaseConfig.ConnectionString);
         connection.Open();
 
-        var computers = connection.Query<Computer>("SELECT * FROM Computers");
+        var labs = connection.Query<Lab>("SELECT * FROM Labs");
        
-        return computers;
+        return labs;
     }
 
-    public Computer Save(Computer computer)
+    public Lab Save(Lab lab)
     {
         using var connection = new SqliteConnection(_databaseConfig.ConnectionString);
         connection.Open();
 
-        connection.Execute("INSERT INTO Computers VALUES(@Id, @Ram, @Processor)", computer);
+        connection.Execute("INSERT INTO Labs VALUES(@Id, @Number, @Name, @Block)", lab);
 
-        return computer;
+        return lab;
     }
 
-    public Computer GetById(int id)
+    public Lab GetById(int id)
     {
         using var connection = new SqliteConnection(_databaseConfig.ConnectionString);
         connection.Open();
 
-        var computer = connection.QuerySingle<Computer>("SELECT * FROM Computers WHERE id=@Id", new {Id = id});
+        var lab = connection.QuerySingle<Lab>("SELECT * FROM Labs WHERE id=@Id", new {Id = id});
 
-        return computer;
+        return lab;
 
     }
 
@@ -50,18 +50,18 @@ class ComputerRepository
         using var connection = new SqliteConnection(_databaseConfig.ConnectionString);
         connection.Open();
 
-        connection.Execute(" DELETE FROM Computers WHERE id=@Id", new {Id = id});
+        connection.Execute(" DELETE FROM Labs WHERE id=@Id", new {Id = id});
     }
 
 
-    public Computer Update(Computer computer)
+    public Lab Update(Lab lab)
     {
         using var connection = new SqliteConnection(_databaseConfig.ConnectionString);
         connection.Open();
 
-        var command = connection.Execute( @" UPDATE Computers SET ram=@Ram, processor=@Processor WHERE id=@Id", computer);
+        var command = connection.Execute( @" UPDATE Labs SET number=@Number, name=@Name, block=@block WHERE id=@Id", lab);
 
-        return computer;
+        return lab;
     }
 
     public bool ExistsById(int id)
@@ -69,7 +69,7 @@ class ComputerRepository
         using var connection = new SqliteConnection(_databaseConfig.ConnectionString);
         connection.Open();
 
-        bool result = Convert.ToBoolean(connection.ExecuteScalar("SELECT count(id) FROM Computers WHERE id=@Id", new{Id = id}));
+        bool result = Convert.ToBoolean(connection.ExecuteScalar("SELECT count(id) FROM Labs WHERE id=@Id", new{Id = id}));
 
         return result;
     }
