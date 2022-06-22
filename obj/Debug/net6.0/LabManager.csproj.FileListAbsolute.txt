@@ -104,3 +104,4 @@ C:\Users\IFSP\Desktop\Lp3\LabManager\obj\Debug\net6.0\refint\LabManager.dll
 C:\Users\IFSP\Desktop\Lp3\LabManager\obj\Debug\net6.0\LabManager.pdb
 C:\Users\IFSP\Desktop\Lp3\LabManager\obj\Debug\net6.0\LabManager.genruntimeconfig.cache
 C:\Users\IFSP\Desktop\Lp3\LabManager\obj\Debug\net6.0\ref\LabManager.dll
+C:\Users\IFSP\Desktop\SP3044271\LabManager\bin\Debug\net6.0\Dapper.dll
